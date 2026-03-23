@@ -30,6 +30,7 @@
         <li><a href="#inicio">Inicio</a></li>
         <li><a href="#servicios">Servicios</a></li>
         <li><a href="#beneficios">Beneficios</a></li>
+        <li><a href="#galeria">Galería</a></li>
         <li><a href="#opiniones">Opiniones</a></li>
         <li><a href="#contacto">Contacto</a></li>
       </ul>
@@ -187,6 +188,40 @@
     </div>
   </section>
 
+  <!-- Gallery -->
+  <section id="galeria" class="gallery section">
+    <div class="container">
+      <div class="section-title">
+        <span class="section-tag">Galería</span>
+        <h2>Nuestros trabajos</h2>
+        <p>Conoce algunos de nuestros resultados.</p>
+      </div>
+
+      <div class="gallery-grid">
+        <div class="gallery-item">
+          <img src="galeria/image1.jpeg" alt="Trabajo de lavado 1" loading="lazy" />
+          <div class="gallery-overlay">
+            <i class="fas fa-search-plus"></i>
+          </div>
+        </div>
+
+        <div class="gallery-item">
+          <img src="galeria/image2.jpeg" alt="Trabajo de lavado 2" loading="lazy" />
+          <div class="gallery-overlay">
+            <i class="fas fa-search-plus"></i>
+          </div>
+        </div>
+
+        <div class="gallery-item">
+          <img src="galeria/image3.jpeg" alt="Trabajo de lavado 3" loading="lazy" />
+          <div class="gallery-overlay">
+            <i class="fas fa-search-plus"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Testimonials -->
   <section id="opiniones" class="testimonials section">
     <div class="container">
@@ -266,7 +301,7 @@
 
           <div class="info-item">
             <i class="fas fa-envelope"></i>
-            <span>tuemail@correo.com</span>
+            <span>dumbodetailing463@gmail.com</span>
           </div>
 
           <div class="info-item">
@@ -307,6 +342,12 @@
       <p>© 2026 Dumbodetailing | Lavado de Carros. Todos los derechos reservados.</p>
     </div>
   </footer>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightboxClose">&times;</button>
+    <img src="" alt="Imagen ampliada" id="lightboxImg" />
+  </div>
 
   <script>
     const menuToggle = document.getElementById('menuToggle');
@@ -366,6 +407,32 @@
            alert('Hubo un error al enviar. Intenta por WhatsApp.');
            console.log('EmailJS error:', error);
         });
+    });
+
+    // Lightbox functionality
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    const lightboxClose = document.getElementById('lightboxClose');
+    const galleryItems = document.querySelectorAll('.gallery-item img');
+
+    galleryItems.forEach(img => {
+      img.addEventListener('click', () => {
+        lightboxImg.src = img.src;
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      });
+    });
+
+    lightboxClose.addEventListener('click', () => {
+      lightbox.classList.remove('active');
+      document.body.style.overflow = '';
+    });
+
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) {
+        lightbox.classList.remove('active');
+        document.body.style.overflow = '';
+      }
     });
   </script>
 </body>
