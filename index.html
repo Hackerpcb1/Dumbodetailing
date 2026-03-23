@@ -197,26 +197,26 @@
         <p>Conoce algunos de nuestros resultados.</p>
       </div>
 
-      <div class="gallery-grid">
-        <div class="gallery-item">
-          <img src="galeria/image1.jpeg" alt="Trabajo de lavado 1" loading="lazy" />
-          <div class="gallery-overlay">
-            <i class="fas fa-search-plus"></i>
+      <div class="slideshow-container">
+        <div class="slideshow-wrapper">
+          <div class="slide active">
+            <img src="galeria/image1.jpeg" alt="Trabajo de lavado 1" />
+          </div>
+          <div class="slide">
+            <img src="galeria/image2.jpeg" alt="Trabajo de lavado 2" />
+          </div>
+          <div class="slide">
+            <img src="galeria/image3.jpeg" alt="Trabajo de lavado 3" />
           </div>
         </div>
-
-        <div class="gallery-item">
-          <img src="galeria/image2.jpeg" alt="Trabajo de lavado 2" loading="lazy" />
-          <div class="gallery-overlay">
-            <i class="fas fa-search-plus"></i>
-          </div>
-        </div>
-
-        <div class="gallery-item">
-          <img src="galeria/image3.jpeg" alt="Trabajo de lavado 3" loading="lazy" />
-          <div class="gallery-overlay">
-            <i class="fas fa-search-plus"></i>
-          </div>
+        
+        <button class="slideshow-prev" onclick="changeSlide(-1)">&#10094;</button>
+        <button class="slideshow-next" onclick="changeSlide(1)">&#10095;</button>
+        
+        <div class="slideshow-dots">
+          <span class="dot active" onclick="currentSlide(1)"></span>
+          <span class="dot" onclick="currentSlide(2)"></span>
+          <span class="dot" onclick="currentSlide(3)"></span>
         </div>
       </div>
     </div>
@@ -434,6 +434,44 @@
         document.body.style.overflow = '';
       }
     });
+
+    // Gallery Slideshow functionality
+    let gallerySlideIndex = 0;
+    const gallerySlides = document.querySelectorAll('.slideshow-wrapper .slide');
+    const galleryDots = document.querySelectorAll('.slideshow-dots .dot');
+    const galleryWrapper = document.querySelector('.slideshow-wrapper');
+    
+    if (gallerySlides.length > 0) {
+      function showGallerySlide(n) {
+        if (n >= gallerySlides.length) gallerySlideIndex = 0;
+        if (n < 0) gallerySlideIndex = gallerySlides.length - 1;
+        
+        if (galleryWrapper) {
+          galleryWrapper.style.transform = 'translateX(-' + (gallerySlideIndex * 100) + '%)';
+        }
+        
+        galleryDots.forEach(dot => dot.classList.remove('active'));
+        if (galleryDots[gallerySlideIndex]) galleryDots[gallerySlideIndex].classList.add('active');
+      }
+      
+      window.changeSlide = function(n) {
+        gallerySlideIndex += n;
+        showGallerySlide(gallerySlideIndex);
+      };
+      
+      window.currentSlide = function(n) {
+        gallerySlideIndex = n - 1;
+        showGallerySlide(gallerySlideIndex);
+      };
+      
+      // Auto advance slides every 5 seconds
+      setInterval(() => {
+        gallerySlideIndex++;
+        showGallerySlide(gallerySlideIndex);
+      }, 5000);
+      
+      showGallerySlide(0);
+    }
   </script>
 </body>
 </html>
